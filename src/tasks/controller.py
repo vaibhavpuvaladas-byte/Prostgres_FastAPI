@@ -1,6 +1,7 @@
 from src.tasks.dtos import TaskSchema
 from sqlalchemy.orm import Session
 from src.tasks.models import TaskModel
+from fastapi import HTTPException
 
 '''here is where the logic goes'''
 
@@ -17,3 +18,9 @@ def get_task(db:Session):
     tasks = db.query(TaskModel).all()
     return {"message": "Tasks retrieved successfully", "tasks": tasks}
 
+def get_task_by_id(task_id:int, db:Session):
+    task = db.query(TaskModel).filter(TaskModel.id == task_id).first()
+    if task:
+        return {"message": "Task retrieved successfully", "task": task}
+    else:
+        return {"message": "Task not found", "task": None}

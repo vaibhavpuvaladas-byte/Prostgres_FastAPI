@@ -4,6 +4,7 @@ from src.utils.db import get_db
 from sqlalchemy.orm import Session
 from src.tasks.controller import create_task
 from src.tasks.controller import get_task
+from src.tasks.controller import get_task_by_id
 
 task_router = APIRouter(prefix="/tasks")
 @task_router.post("/create")
@@ -14,3 +15,7 @@ def create_new_task_route(body: TaskSchema, db: Session = Depends(get_db)):
 @task_router.get("/all_tasks")
 def get_all_tasks_route(db: Session = Depends(get_db)):
     return get_task(db)
+
+@task_router.get("/get_task/{task_id}")
+def get_one_task(task_id:int, db:Session = Depends(get_db)):
+    return get_task_by_id(task_id, db)
