@@ -13,3 +13,7 @@ def create_task(body:TaskSchema, db:Session):
     db.refresh(new_task)
     return {"message": "Task created successfully", "task": new_task}
 
+def get_task(db:Session):
+    tasks = db.query(TaskModel).all()
+    return {"message": "Tasks retrieved successfully", "tasks": tasks}
+
