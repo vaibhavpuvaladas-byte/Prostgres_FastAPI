@@ -12,3 +12,7 @@ class UserResponseSchema(BaseModel):
     username: str
     email: EmailStr
     id: int
+
+class LoginSchema(BaseModel):
+    username:str
+    password:str
