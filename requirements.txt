@@ -1,6 +1,9 @@
 pydantic_settings
 pydantic
 sqlalchemy
-fastapi
-uvicorn
+fastapi 
+uvicorn # fastapi server
 psycopg[binary]
+pyjwt #for jwt token
+pwdlib # password hashing
+pwdlib[argon2]
