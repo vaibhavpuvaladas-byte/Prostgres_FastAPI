@@ -1,0 +1,15 @@
+$kind: http-request
+url: http://127.0.0.1:8000/tasks/update_task/11
+method: PUT
+body:
+  type: json
+  content: "{\r
+
+    \    \"title\": \"Want to go to adate\",\r
+
+    \    \"description\": \"after dinner with my girlfriend\",\r
+
+    \    \"is_completed\" : \"False\"\r
+
+    }"
+order: 3000
