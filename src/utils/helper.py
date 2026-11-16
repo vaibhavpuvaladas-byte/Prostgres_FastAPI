@@ -27,4 +27,4 @@ def is_authenticated(request: Request, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return {"message": "User is authenticated", "user": {"username": user.username, "id": user.id , "name": user.name, "email": user.email}}
+    return user

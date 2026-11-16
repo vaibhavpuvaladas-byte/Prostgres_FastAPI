@@ -7,3 +7,4 @@ psycopg[binary]
 pyjwt #for jwt token
 pwdlib # password hashing
 pwdlib[argon2]
+alembic

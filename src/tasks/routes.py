@@ -13,21 +13,21 @@ from src.user.models import UserModel
 task_router = APIRouter(prefix="/tasks")
 @task_router.post("/create")
 def create_new_task_route(body: TaskSchema, db: Session = Depends(get_db) , user : UserModel = Depends(is_authenticated)):
-    return create_task(body, db)
+    return create_task(body, db , user)
 
 
 @task_router.get("/all_tasks")
-def get_all_tasks_route(db: Session = Depends(get_db)):
-    return get_task(db)
+def get_all_tasks_route(db: Session = Depends(get_db), user: UserModel = Depends(is_authenticated)):
+    return get_task(db, user)
 
 @task_router.get("/get_task/{task_id}")
-def get_one_task(task_id:int, db:Session = Depends(get_db) ,  user : UserModel = Depends(is_authenticated)):
-    return get_task_by_id(task_id, db)
+def get_one_task(task_id:int, db:Session = Depends(get_db) , user : UserModel = Depends(is_authenticated)):
+    return get_task_by_id(task_id, db , user)
 
 @task_router.put("/update_task/{task_id}")
-def update_task_route(body: TaskSchema, task_id:int, db: Session = Depends(get_db) ,  user : UserModel = Depends(is_authenticated)):
-    return update_task(body, task_id, db)
+def update_task_route(body: TaskSchema, task_id:int, db: Session = Depends(get_db) , user : UserModel = Depends(is_authenticated)):
+    return update_task(body, task_id, db , user)
 
 @task_router.delete("/delete_task/{task_id}")
-def delete_task_route(task_id:int, db: Session = Depends(get_db) ,  user : UserModel = Depends(is_authenticated)):
-    return delete_task(task_id, db)
+def delete_task_route(task_id:int, db: Session = Depends(get_db) , user : UserModel = Depends(is_authenticated)):
+    return delete_task(task_id, db , user)
