@@ -8,13 +8,14 @@ from pwdlib import PasswordHash
 import jwt
 from src.utils.settings import settings
 from datetime import datetime, timedelta
+from src.utils.mail import send_email
 
 password_hash = PasswordHash.recommended()
 def get_password_hash(password):
     return password_hash.hash(password)
 
 
-def register_user(body:UserSchema, db:Session):
+async def register_user(body:UserSchema, db:Session):
     is_user = db.query(UserModel).filter(UserModel.username == body.username).first()
     if is_user:
         return {"message": "User already exists"}
@@ -30,6 +31,12 @@ def register_user(body:UserSchema, db:Session):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+
+    try:
+        await send_email([body.email])  # Send email to the registered user's email address
+    except Exception as e:
+        print(f"Warning: Failed to send registration email to {body.email}: {e}")
+        # Email failure should not block a successful registration
 
     return {"message": "User registered successfully", "user": body}
 
